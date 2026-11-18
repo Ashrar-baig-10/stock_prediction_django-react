@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 function Button({ text, classname, href = "" }) {
   return (
-    <a href={href} className={`btn ${classname}`}>
+    <Link to={href} className={`btn ${classname}`}>
       {text}
-    </a>
+    </Link>
   );
 }
 

@@ -1,16 +1,35 @@
+import { Link, useLocation } from "react-router-dom";
 import Button from "./Button";
 
 function Header() {
+  const location = useLocation();
+
   return (
     <>
       <nav className="navbar  bg-1">
         <div className="container d-flex justify-content-between w-100">
-          <a className="navbar-brand text-capitalize" href="">
+          <Link to={"/"} className="navbar-brand text-capitalize" href="">
             stock prediction
-          </a>
+          </Link>
           <div>
-            <Button classname="btn-subtle theme-info me-2" text="Login" />
-            <Button classname="btn-outline theme-info" text="Register" />
+            {location.pathname == "/login" ? (
+              ""
+            ) : (
+              <Button
+                classname="btn-subtle theme-info me-2"
+                text="Login"
+                href="/login"
+              />
+            )}
+            {location.pathname == "/register" ? (
+              ""
+            ) : (
+              <Button
+                classname="btn-outline theme-info"
+                text="Register"
+                href="/register"
+              />
+            )}
           </div>
         </div>
       </nav>
