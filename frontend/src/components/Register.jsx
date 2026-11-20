@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -10,6 +11,7 @@ function Register() {
   const [error, setError] = useState({});
   const [loading_status, setLoading_status] = useState(false);
   const [success, setSuccess] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegisteration = async (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ function Register() {
       setError({});
       if (response) {
         setSuccess(true);
+        navigate("/login");
       }
     } catch (err) {
       setError(err.response.data);

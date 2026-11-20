@@ -1,9 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function Header() {
   const location = useLocation();
+  const { isLoggedin, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  const logoutFunc = () => {
+    logout();
+    navigate("/");
+  };
   return (
     <>
       <nav className="navbar  bg-1">
@@ -11,26 +19,36 @@ function Header() {
           <Link to={"/"} className="navbar-brand text-capitalize" href="">
             stock prediction
           </Link>
-          <div>
-            {location.pathname == "/login" ? (
-              ""
-            ) : (
+          {!isLoggedin ? (
+            <div>
+              {location.pathname == "/login" ? (
+                ""
+              ) : (
+                <Button
+                  classname="btn-subtle theme-info me-2"
+                  text="Login"
+                  href="/login"
+                />
+              )}
+              {location.pathname == "/register" ? (
+                ""
+              ) : (
+                <Button
+                  classname="btn-outline theme-info"
+                  text="Register"
+                  href="/register"
+                />
+              )}
+            </div>
+          ) : (
+            <div>
               <Button
-                classname="btn-subtle theme-info me-2"
-                text="Login"
-                href="/login"
+                classname="btn-solid theme-danger"
+                text="Logout"
+                onClickfunc={logoutFunc}
               />
-            )}
-            {location.pathname == "/register" ? (
-              ""
-            ) : (
-              <Button
-                classname="btn-outline theme-info"
-                text="Register"
-                href="/register"
-              />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </nav>
     </>
